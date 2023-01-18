@@ -65,6 +65,16 @@ form {
 
 .output {
   background-color: #b0b0b0;
+  padding: 1rem;
+}
+
+.card-wrapper {
+  margin-top: 1rem;
+}
+
+.card {
+  margin-bottom: 0.5rem;
+  background-color: white;
 }
 
 #comment-id {
