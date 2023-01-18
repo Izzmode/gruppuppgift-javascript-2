@@ -97,7 +97,7 @@ body {
   padding: 0.4rem 0rem;
 }
 
-.card-wrapper .status {
+.card-wrapper .status, .card-wrapper .userEmail, .card-wrapper .timeStamp {
   font-size: 0.7rem;
 }
 
