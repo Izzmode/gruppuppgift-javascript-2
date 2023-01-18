@@ -32,11 +32,13 @@ form {
     padding: 2rem; 
     width: 400px;
     height: 80vh;
+    overflow: scroll;
 }
 
 .error-container{
     background-color: white;
     padding: 1rem;
+    margin-bottom: .7rem;
 }
 
 .comment-wrapper{

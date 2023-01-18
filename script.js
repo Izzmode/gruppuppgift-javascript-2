@@ -2,14 +2,58 @@ const BASE_URL = ' https://fnd22-shared.azurewebsites.net/api/cases/';
 const COMMENTS_URL = ' https://fnd22-shared.azurewebsites.net/api/comments/';
 const STATUSES_URL = ' https://fnd22-shared.azurewebsites.net/api/statuses/';
 
+const cases = []
 
+const output = document.querySelector('.error-wrapper')
 
 
 // HÄMTA CASES FRÅN API
 
+
+const getCases = () => {
+    fetch(BASE_URL)
+      .then(res => res.json())
+      .then(data => {
+  
+        console.log(data)
+        output.innerHTML = ''
+
+        data.forEach(user => {
+          cases.push(user)
+          output.appendChild(createCaseElement(user))
+        });
+      })
+  }
+
+getCases()
+console.log(cases)
+
+
+
 // LIST CASES - Lista upp dem i rätt ordning
 
+
+
 // CREATE ELEMENT - Skapa html-kort av cases
+
+const createCaseElement = (caseData) => {
+
+
+  const card = document.createElement('div')
+  card.classList.add('error-container')
+
+  const titel = document.createElement('h2')
+  titel.innerText = caseData.subject
+
+  const message = document.createElement('p')
+  message.innerText = caseData.message
+
+  card.appendChild(titel)
+  card.appendChild(message)
+
+  return card
+}
+
 
 // VALIDATE ADD-FORM - Validera lägg till ärende-formuläret
 
