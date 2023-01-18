@@ -29,11 +29,16 @@ const STATUSES_URL = ' https://fnd22-shared.azurewebsites.net/api/statuses/';
 // UPDATE STATUS IN DATABASE - Ändrar 0,1,2 i statusen, skickar till databasen
 
 
-// EVENT LISTENER
+
+
+
+// EVENT LISTENERS
 
 // ADD-FORM SUBMIT (validatefunktionen körs + create Element + Add to Database)
 
 // OPEN CASE (tar en till details-sidan som visar specifics)
+
+
 
 
 // DETAILS.JS
