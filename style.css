@@ -24,10 +24,19 @@ body {
   padding: 0.4rem;
 }
 
+.form-wrapper-details form button {
+  padding: 0.4rem;
+  margin-top: 0.4rem;
+}
+
 .form-wrapper-details {
   background-color: #b0b0b0;
   padding: 2rem;
   width: 400px;
+}
+
+.status-wrapper p {
+  padding: 0.4rem;
 }
 
 .error-wrapper {
@@ -75,6 +84,7 @@ body {
 .card-wrapper .card {
   margin-bottom: 0.5rem;
   background-color: white;
+  padding: 0.4rem;
 }
 
 .comment-class {
@@ -83,8 +93,21 @@ body {
   margin-top: 0.5rem;
 }
 
-.comment-text {
+.card-wrapper .descriptionText {
+  padding: 0.4rem 0rem;
+}
+
+.card-wrapper .status {
+  font-size: 0.7rem;
+}
+
+.card-wrapper .userEmail {
   display: inline-block;
+}
+
+.card-wrapper .timeStamp {
+  display: inline-block;
+  margin-left: 6rem;
 }
 
 * {
@@ -133,23 +156,4 @@ form {
   margin-bottom: 0.7rem;
   text-decoration: none;
   color: black;
-}
-
-.comment-wrapper {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-.status-wrapper {
-  background-color: #b0b0b0;
-  width: 400px;
-  text-align: center;
-  padding-bottom: 2rem;
-}
-
-.form-wrapper-details {
-  background-color: #b0b0b0;
-  padding: 2rem;
-  width: 400px;
 }/*# sourceMappingURL=style.css.map */
