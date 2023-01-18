@@ -2,7 +2,17 @@ const BASE_URL = ' https://fnd22-shared.azurewebsites.net/api/cases/';
 const COMMENTS_URL = ' https://fnd22-shared.azurewebsites.net/api/comments/';
 const STATUSES_URL = ' https://fnd22-shared.azurewebsites.net/api/statuses/';
 
+const cases = []
 
+const getCases = async () => {
+    const res = await fetch(BASE_URL)
+    const cases = await res.json()
+  
+    console.log(cases)
+    cases.forEach(cases => {
+    })
+  }
+  getCases()
 
 
 // HÄMTA CASES FRÅN API
