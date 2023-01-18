@@ -37,4 +37,23 @@ form {
 .error-container {
   background-color: white;
   padding: 1rem;
+}
+
+.comment-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.status-wrapper {
+  background-color: #b0b0b0;
+  width: 400px;
+  text-align: center;
+  padding-bottom: 2rem;
+}
+
+.form-wrapper-details {
+  background-color: #b0b0b0;
+  padding: 2rem;
+  width: 400px;
 }/*# sourceMappingURL=style.css.map */
