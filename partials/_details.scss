@@ -77,8 +77,13 @@ form {
     background-color: white;
 }
 
-#comment-id{
+.comment-class{
     background-color: white;
     height: 50px;
     width: 100%;
+    margin-top: 0.5rem;
+}
+
+.comment-text{
+    display: inline-block;
 }
