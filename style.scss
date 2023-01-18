@@ -1,1 +1,69 @@
 @import "partials/details";
+
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body{
+    background-color: #333;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.wrapper{
+    display: flex;
+    justify-content: space-around;
+    height: 100vh;
+    align-items: center;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-wrapper{
+    background-color: #b0b0b0;
+    padding: 2rem;
+    width: 400px;
+    height: 80vh;
+}
+
+.error-wrapper{
+    background-color: #b0b0b0;
+    padding: 2rem; 
+    width: 400px;
+    height: 80vh;
+    overflow: scroll;
+}
+
+.error-container{
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    padding: 1rem;
+    margin-bottom: .7rem;
+    text-decoration: none;
+    color: black;
+}
+
+.comment-wrapper{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.status-wrapper{
+    background-color: #b0b0b0;
+    width: 400px;
+    text-align: center;
+    padding-bottom: 2rem;
+}
+
+.form-wrapper-details{
+    background-color: #b0b0b0;
+    padding: 2rem;
+    width: 400px;
+}
+

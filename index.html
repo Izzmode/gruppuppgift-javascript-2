@@ -11,7 +11,7 @@
   <body>
     <div class="wrapper">
       <div class="form-wrapper">
-        <form>
+        <form id="add-form">
           <p>LÄGG TILL ÄRENDE</p>
           <label for="email">EMAIL</label>
           <input type="text" id="email" />
@@ -19,28 +19,27 @@
           <input type="text" id="subject" />
           <label for="textarea-input">MESSAGE</label>
           <textarea
+            id="message"
             class="text-input"
             id="textarea-input"
             cols="30"
             rows="10"
           ></textarea>
+          <button>Submit</button>
         </form>
       </div>
 
       <div class="error-wrapper">
-        <div class="error-container">
-          <h1>TITEL</h1>
+        <a href="./details.html" class="error-container">
+          <p>Status</p>
+          <h2>TITEL</h2>
           <p>
             Lorem ipsum dolor sit amet consectetur, adipisicing elit. Odio quas
             nostrum explicabo debitis eius at repudiandae sequi doloribus atque!
-            Quae, ratione distinctio. Quidem excepturi consequatur quo explicabo
-            quae quod deserunt nesciunt suscipit totam blanditiis neque
-            voluptatem impedit a, ratione magnam optio iste sit laudantium
-            dolor. Eaque optio veritatis nulla doloremque, voluptates et,
-            debitis at animi sequi aperiam numquam, officia maiores similique!
-            Cum, quasi veritatis. Quia iste vero delectus nam magnam ducimus?
           </p>
-        </div>
+          <p>Användare</p>
+          <p>Tidpunkt</p>
+        </a>
       </div>
     </div>
 
