@@ -49,4 +49,24 @@ const getCases = () => {
   
     return card
   }
-  
+
+  const newCase = {
+    email: document.querySelector('#email').value,
+    subject: document.querySelector('#subject').value,
+    message: document.querySelector('#message').value,
+  }
+
+  fetch(BASE_URL, {
+    method:'POST',
+    body: JSON.stringify(newCase),
+    headers: {
+        'Content-type': 'application/json; charset=UTF-8',
+    },
+})
+    .then((response) => response.json())
+    .then((data) => {
+        cases.push(data)
+        const caseElement = createCaseElement(data)
+        listCases.appendChild(caseElement)
+
+    })
