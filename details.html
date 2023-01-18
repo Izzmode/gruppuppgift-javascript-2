@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Details</title>
+
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="comment-wrapper">
+      <div class="form-wrapper-details">
+        <form>
+          <label for="email">EMAIL</label>
+          <input type="text" id="email" />
+          <label for="textarea-input">COMMENT</label>
+          <textarea
+            class="text-input"
+            id="textarea-input"
+            cols="30"
+            rows="10"
+          ></textarea>
+          <button class="comment-btn">SUBMIT</button>
+        </form>
+      </div>
+
+      <div class="status-wrapper">
+        <p>ÄNDRA ÄRENDESTATUS</p>
+        <input type="radio" id="not-started" />
+        <input type="radio" id="ongoing" />
+        <input type="radio" id="done" />
+      </div>
+    </div>
+
+    <script src="details.js"></script>
+  </body>
+</html>
