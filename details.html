@@ -9,27 +9,49 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <div class="comment-wrapper">
-      <div class="form-wrapper-details">
-        <form>
-          <label for="email">EMAIL</label>
-          <input type="text" id="email" />
-          <label for="textarea-input">COMMENT</label>
-          <textarea
-            class="text-input"
-            id="textarea-input"
-            cols="30"
-            rows="10"
-          ></textarea>
-          <button class="comment-btn">SUBMIT</button>
-        </form>
+    <div class="wrap-all">
+      <div class="comment-wrapper">
+        <div class="form-wrapper-details">
+          <form>
+            <label for="email">EMAIL</label>
+            <input type="email" id="email" />
+            <label for="textarea-input">COMMENT</label>
+            <textarea
+              class="text-input"
+              id="textarea-input"
+              cols="30"
+              rows="10"
+            ></textarea>
+            <button class="comment-btn">SUBMIT</button>
+          </form>
+        </div>
+
+        <div class="status-wrapper">
+          <p>ÄNDRA ÄRENDESTATUS</p>
+          <input type="radio" id="not-started" />
+          <input type="radio" id="ongoing" />
+          <input type="radio" id="done" />
+        </div>
       </div>
 
-      <div class="status-wrapper">
-        <p>ÄNDRA ÄRENDESTATUS</p>
-        <input type="radio" id="not-started" />
-        <input type="radio" id="ongoing" />
-        <input type="radio" id="done" />
+      <!-- HÖGER RUTA -->
+
+      <div class="output">
+        <div class="card-wrapper">
+          <div class="card">
+            <h1>Titel</h1>
+            <p>DETTA HÄMTAS FRÅN SUBMIT</p>
+          </div>
+        </div>
+
+        <div class="comments">
+          <h2>KOMMENTARER</h2>
+          <div class="comment-class">
+            <p class="comment-text"></p>
+            <p class="email_comments"></p>
+            <p class="time_comments"></p>
+          </div>
+        </div>
       </div>
     </div>
 
