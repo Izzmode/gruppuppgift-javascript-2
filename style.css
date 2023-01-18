@@ -56,4 +56,19 @@ form {
   background-color: #b0b0b0;
   padding: 2rem;
   width: 400px;
+}
+
+.wrap-all {
+  display: flex;
+  justify-content: space-around;
+}
+
+.comments {
+  background-color: #b0b0b0;
+}
+
+#comment-id {
+  background-color: white;
+  height: 50px;
+  width: 100%;
 }/*# sourceMappingURL=style.css.map */
