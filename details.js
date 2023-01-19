@@ -27,12 +27,6 @@ fetch(BASE_URL + id)
 //SKAPAR ELEMENT FRÅN API
 
 const listComments = (data) => {
-
-
-    console.log(data.comments[0].message, data.comments[0].created, data.comments[0].email);
-
-    // console.log(data.comments);
-
     const getComments = data.comments
 
     getComments.forEach(comment => {
@@ -57,8 +51,6 @@ const listComments = (data) => {
         commentDiv.appendChild(timeComments);
         comments.appendChild(commentDiv);
     })
-    
-
 }
 
 const createElement = (data) => {
