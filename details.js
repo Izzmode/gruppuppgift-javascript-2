@@ -20,10 +20,46 @@ fetch(BASE_URL + id)
     array.push(data);
     createElement(data)
     console.log(array)
+    listComments(data)
 })
 
 
 //SKAPAR ELEMENT FRÅN API
+
+const listComments = (data) => {
+
+
+    console.log(data.comments[0].message, data.comments[0].created, data.comments[0].email);
+
+    // console.log(data.comments);
+
+    const getComments = data.comments
+
+    getComments.forEach(comment => {
+        console.log(comment);
+        const commentDiv = document.createElement('div');
+        commentDiv.classList.add('comment-class');
+    
+        const commentP = document.createElement('p');
+        commentP.classList.add('comment-text');
+        commentP.innerText = comment.message;
+    
+        const emailComments = document.createElement('p');
+        emailComments.classList.add('email_comments');
+        emailComments.innerText = comment.email;
+    
+        const timeComments = document.createElement('p');
+        timeComments.classList.add('time_comments');
+        timeComments.innerText = comment.created
+    
+        commentDiv.appendChild(commentP);
+        commentDiv.appendChild(emailComments);
+        commentDiv.appendChild(timeComments);
+        comments.appendChild(commentDiv);
+    })
+    
+
+}
 
 const createElement = (data) => {
     const div = document.createElement('div');
@@ -56,6 +92,8 @@ const createElement = (data) => {
     div.appendChild(timeStamp)
     cardWrapper.appendChild(div);
 };
+
+
 
 
 const validateForm = () => {
