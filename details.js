@@ -69,8 +69,8 @@ const validateForm = () => {
     const commentInputValue = commentInput.value;
     
 
-    if(emailInputValue.trim() === '' || commentInputValue.trim() === '' ||!(document.querySelector('input[type=radio]').checked)) {
-    console.log('NEJ');
+    if(emailInputValue.trim() === '' || commentInputValue.trim() === '' /* ||!(document.querySelector('input[type=radio]').checked) */ ) {
+    // console.log('NEJ');
     return false
   }
 
@@ -89,7 +89,7 @@ const createNewComment = () => {
   const commentInputValue = commentInput.value;
 
 
-  if(emailInputValue.trim() === '' || commentInputValue.trim() === '' || !(document.querySelector('input[type=radio]').checked)) {
+  if(emailInputValue.trim() === '' || commentInputValue.trim() === '' /*|| !(document.querySelector('input[type=radio]').checked) */) {
     console.log(emailInputValue);
     return
   }
@@ -120,9 +120,9 @@ const createNewComment = () => {
 const getInput = (e) => {
     e.preventDefault();
 
-    console.log('1')
+    // console.log('1')
 if(!validateForm()) {
-    console.log(2)
+    // console.log(2)
     return
 }
 
@@ -131,6 +131,8 @@ if(!validateForm()) {
         email: form.querySelector('input[type=email]').value,
         message: form.querySelector('#textarea-input').value
     }
+
+    
 
     console.log(newComment)
     // createNewComment()
@@ -145,7 +147,51 @@ if(!validateForm()) {
         .then(res => console.log(res))
         .then(createNewComment())
         
-    }
+
+
+  // hämta objektet på nytt LOL
+
+  const statusValue = document.querySelector('input[name="rBtn"]:checked').value
+
+  console.log(statusValue)
+  Number(statusValue)
+  console.log(statusValue)
+  
+  fetch(BASE_URL + id)
+    .then (res => res.json())
+    .then (() => {
+
+      // console.log(data)
+
+      // data.status.id = Number(statusValue)
+      // data.statusId = Number(statusValue)
+
+      let newStatus = {
+        id: id,
+        statusId: Number(statusValue)
+      }
+      
+
+      fetch(BASE_URL + id, {
+        method: 'PUT',
+        body: JSON.stringify(newStatus),
+        headers: {
+          'Content-type': 'application/json; charset=UTF-8',
+        },
+      })
+        .then((res) => console.log(res))
+        
+
+
+
+
+})
+
+}
+
+  
+
+
     // )
 
 // }
