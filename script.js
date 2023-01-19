@@ -30,6 +30,9 @@ const getCases = () => {
 getCases()
 console.log(cases)
 
+cases.sort((a, b) => {
+    
+})
 
 
 // LIST CASES - Lista upp dem i rätt ordning
