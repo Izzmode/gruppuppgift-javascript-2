@@ -19,8 +19,8 @@ const getCases = () => {
         console.log(data)
         output.innerHTML = ''
 
-        data.forEach(user => {
-          cases.push(user)
+        data.forEach(post => {
+          cases.push(post)
         });
 
         listCases()
@@ -38,6 +38,7 @@ const listCases = () => {
   output.innerHTML = ''
 
   cases.forEach(user => {
+    // TBD - Lista upp dem enligt timestamp
   const caseElement = createCaseElement(user)
   output.appendChild(caseElement)
   })
@@ -82,7 +83,12 @@ const createCaseElement = (caseData) => {
   email.innerText = caseData.email
 
   const time = document.createElement('p')
-  time.innerText = caseData.created
+  // time.innerText = caseData.created
+
+  let timeStamp = caseData.created
+  const date = new Date(timeStamp)
+  const dateFormat = date.getHours() + ':' + date.getMinutes() + ', ' + date.toDateString()
+  time.innerText = dateFormat
 
   card.appendChild(status)
   card.appendChild(titel)
@@ -97,42 +103,44 @@ const createCaseElement = (caseData) => {
 // VALIDATE ADD-FORM - Validera lägg till ärende-formuläret
 
 const validateAddForm = e => {
-  e.preventDefault()
 
   const email = document.querySelector('#email')
   const subject = document.querySelector('#subject')
   const message = document.querySelector('#message')
   const regEx = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+  const errorMessage = document.querySelector('#error-message')
 
   if(email.value.trim() === '' || subject.value.trim() === '' || message.value.trim() === '') {
-    console.log('SKRIV NÅT')
-    // TBD Lägg till nåt synligt på sidan som händer 
+    errorMessage.classList.remove('display-none')
+    return false
   }
-
+  
   if(!regEx.test(email.value)) {
-    console.log('Skriv en vettig mail')
-    // TBD Lägg till nåt som syns på sidan
+    errorMessage.classList.remove('display-none')
+    return false
   }
 
-  console.log('BRA, DET LYCKADES')
+  errorMessage.classList.add('display-none')
+  return true
 }
 
-// ADD CASE TO DATABASE 
 
 
+//ADD CASE TO DATABASE 
 
 const handleSubmit = e => {
   e.preventDefault()
 
-  // VALIDERA INPUTS
+  if(!validateAddForm()) {
+    console.log('valideringsfel')
+    return 
+  }
 
   let newCase = {
     email: document.querySelector('#email').value,
     subject: document.querySelector('#subject').value,
     message: document.querySelector('#message').value
   }
-
-  console.log(newCase)
 
   fetch(BASE_URL, {
   method:'POST',
@@ -155,15 +163,8 @@ const handleSubmit = e => {
         listCases()
       })
 
-      // cases.push(data)
-      // console.log(data) 
-      // output.innerHTML = ''
-
-      // const caseElement = createCaseElement(data)
-      // output.appendChild(caseElement)
-      // console.log(caseElement)
-
     })
+
 }
 
 

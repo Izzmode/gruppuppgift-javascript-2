@@ -156,4 +156,8 @@ form {
   margin-bottom: 0.7rem;
   text-decoration: none;
   color: black;
+}
+
+.display-none {
+  display: none;
 }/*# sourceMappingURL=style.css.map */
