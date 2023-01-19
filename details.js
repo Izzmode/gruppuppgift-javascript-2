@@ -69,7 +69,6 @@ const validateForm = () => {
     
 
     if(emailInputValue.trim() === '' || commentInputValue.trim() === '' /* ||!(document.querySelector('input[type=radio]').checked) */ ) {
-    // console.log('NEJ');
     return false
   }
 
