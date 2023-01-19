@@ -20,6 +20,16 @@ fetch(BASE_URL + id)
     createElement(data)
     console.log(array)
     listComments(data)
+
+    if(data.statusId == 1) {
+      document.querySelector('.status').style.color = '#ff0000'
+    }
+    if(data.statusId == 2) {
+      document.querySelector('.status').style.color = 'yellow'
+    }
+    if(data.statusId == 3) {
+      document.querySelector('.status').style.color = '#00ff00'
+    }
 })
 
 // const getComments = () => {
@@ -42,7 +52,7 @@ const listComments = (data) => {
     const getComments = data.comments
 
     getComments.forEach(comment => {
-        console.log(comment);
+        // console.log(comment);
         const commentDiv = document.createElement('div');
         commentDiv.classList.add('comment-class');
 
@@ -56,7 +66,10 @@ const listComments = (data) => {
 
         const timeComments = document.createElement('p');
         timeComments.classList.add('time_comments');
-        timeComments.innerText = comment.created
+        let time = comment.created
+        const date = new Date(time)
+        const dateFormat = date.getHours() + ':' + date.getMinutes() + ', ' + date.toDateString()
+        timeComments  .innerText = dateFormat
 
         commentDiv.appendChild(commentP);
         commentDiv.appendChild(emailComments);
@@ -204,7 +217,7 @@ const getInput = (e) => {
         createNewComment()
 
         const statusValue = document.querySelector('input[name="rBtn"]:checked').value
-      
+
         Number(statusValue)
         
         fetch(BASE_URL + id)
@@ -234,8 +247,16 @@ const getInput = (e) => {
         
                   cardWrapper.innerHTML = ''
                   createElement(data)
-                  document.querySelector('input[type=email]').textContent = ''   
-                  document.querySelector('#textarea-input').innerHTML = ''  
+
+                  if(statusValue == 1) {
+                    document.querySelector('.status').style.color = '#ff0000'
+                  }
+                  if(statusValue == 2) {
+                    document.querySelector('.status').style.color = 'yellow'
+                  }
+                  if(statusValue == 3) {
+                    document.querySelector('.status').style.color = '#00ff00'
+                  }
                   })
               })
               })
