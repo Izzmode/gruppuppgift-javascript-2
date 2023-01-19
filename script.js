@@ -49,10 +49,10 @@ const listCases = () => {
 const createCaseElement = (caseData) => {
 
 
-  const card = document.createElement('div')
+  const card = document.createElement('a')
   card.classList.add('error-container')
 
-  // card.setAttribute('href', `details.html?id=${caseData.id}`) 
+  card.setAttribute('href', `details.html?id=${caseData.id}`) 
 
 
   const status = document.createElement('p')
@@ -168,3 +168,5 @@ const handleSubmit = e => {
 
 
 addForm.addEventListener('submit', handleSubmit)
+
+
