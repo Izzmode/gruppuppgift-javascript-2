@@ -45,8 +45,15 @@ const createElement = (data) => {
     userEmail.innerText = data.email;
 
     const timeStamp = document.createElement('p');
+    let time = data.created
+    const date = new Date(time)
+    const dateFormat = date.getHours() + ':' + date.getMinutes() + ', ' + date.toDateString()
     timeStamp.classList.add('timeStamp');
-    timeStamp.innerText = data.created;
+    timeStamp.innerText = dateFormat
+    // timeStamp.innerText = data.created;
+
+
+
 
     div.appendChild(statusText)
     div.appendChild(h1)
@@ -65,9 +72,25 @@ const validateForm = () => {
     const commentInputValue = commentInput.value;
     
 
-    if(emailInputValue.trim() === '' || commentInputValue.trim() === '' /* ||!(document.querySelector('input[type=radio]').checked) */ ) {
+    const radios = document.getElementsByName('rBtn')
+    const errorArray = []
+
+    radios.forEach(radio => {
+      if(radio.checked) {
+        errorArray.push(true)
+      }
+      else {
+        errorArray.push(false)
+      }
+      })
+
+
+    if(emailInputValue.trim() === '' || commentInputValue.trim() === '' ) {
     return false
-  }
+    }
+    if(!errorArray.includes(true)) {
+      return false
+    }
 
   return true
 }
@@ -137,12 +160,8 @@ const getInput = (e) => {
         createNewComment()
 
         const statusValue = document.querySelector('input[name="rBtn"]:checked').value
-
       
-      
-        console.log(statusValue)
         Number(statusValue)
-        console.log(statusValue)
         
         fetch(BASE_URL + id)
           .then (res => res.json())
@@ -171,11 +190,15 @@ const getInput = (e) => {
         
                   cardWrapper.innerHTML = ''
                   createElement(data)
-                  console.log('Pär')
+                  document.querySelector('input[type=email]').textContent = ''   
+                  document.querySelector('#textarea-input').innerHTML = ''  
                   })
               })
               })
             })
+
+            
+              
 }
 
   
