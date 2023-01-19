@@ -10,7 +10,6 @@ const form = document.querySelector('.form-wrapper-details form');
 const array = [];
 const comments = document.querySelector('.output .comments');
 
-// console.log(id);
 
 //LÄGG TILL ID SENARE
 fetch(BASE_URL + id)
@@ -120,81 +119,75 @@ const createNewComment = () => {
 const getInput = (e) => {
     e.preventDefault();
 
-    // console.log('1')
-if(!validateForm()) {
-    // console.log(2)
+  if(!validateForm()) {
     return
-}
+  }
 
-    const newComment = {
-        caseId: id,
-        email: form.querySelector('input[type=email]').value,
-        message: form.querySelector('#textarea-input').value
-    }
+  const newComment = {
+    caseId: id,
+    email: form.querySelector('input[type=email]').value,
+    message: form.querySelector('#textarea-input').value
+  }
 
-    
-
-    console.log(newComment)
-    // createNewComment()
-
-    fetch(COMMENTS_URL, {
-        method: 'POST',
-        body: JSON.stringify(newComment),
-        headers: {
-            'Content-type': 'application/json; charset=UTF-8',
-    },
-})
-        .then(res => console.log(res))
-        .then(createNewComment())
-        
-
-
-  // hämta objektet på nytt LOL
-
-  const statusValue = document.querySelector('input[name="rBtn"]:checked').value
-
-  console.log(statusValue)
-  Number(statusValue)
-  console.log(statusValue)
-  
-  fetch(BASE_URL + id)
-    .then (res => res.json())
-    .then (() => {
-
-      // console.log(data)
-
-      // data.status.id = Number(statusValue)
-      // data.statusId = Number(statusValue)
-
-      let newStatus = {
-        id: id,
-        statusId: Number(statusValue)
-      }
-      
-
-      fetch(BASE_URL + id, {
-        method: 'PUT',
-        body: JSON.stringify(newStatus),
-        headers: {
+  fetch(COMMENTS_URL, {
+      method: 'POST',
+      body: JSON.stringify(newComment),
+      headers: {
           'Content-type': 'application/json; charset=UTF-8',
-        },
-      })
-        .then((res) => console.log(res))
+      },
+    })
+
+    // JSON
+      .then(res => console.log(res))
+      .then(() => {
+        createNewComment()
+
+        const statusValue = document.querySelector('input[name="rBtn"]:checked').value
+
+      
+      
+        console.log(statusValue)
+        Number(statusValue)
+        console.log(statusValue)
         
+        fetch(BASE_URL + id)
+          .then (res => res.json())
+          .then (() => {
+      
+            let newStatus = {
+              id: id,
+              statusId: Number(statusValue)
+            }
+            
+      
+            fetch(BASE_URL + id, {
+              method: 'PUT',
+              body: JSON.stringify(newStatus),
+              headers: {
+                'Content-type': 'application/json; charset=UTF-8',
+              },
+            })
+            // JSON !!!!
+              .then((res) => console.log(res))
+              .then(() => {
 
-
-
-
-})
-
+                fetch(BASE_URL + id)
+                  .then (res => res.json())
+                  .then (data => {
+        
+                  cardWrapper.innerHTML = ''
+                  createElement(data)
+                  console.log('Pär')
+                  })
+              })
+              })
+            })
 }
 
   
 
 
-    // )
 
-// }
 
 
 form.addEventListener('submit', getInput);
