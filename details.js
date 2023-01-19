@@ -10,7 +10,6 @@ const form = document.querySelector('.form-wrapper-details form');
 const array = [];
 const comments = document.querySelector('.output .comments');
 
-// console.log(id);
 
 //LÄGG TILL ID SENARE
 fetch(BASE_URL + id)
@@ -66,8 +65,7 @@ const validateForm = () => {
     const commentInputValue = commentInput.value;
     
 
-    if(emailInputValue.trim() === '' || commentInputValue.trim() === '' ||!(document.querySelector('input[type=radio]').checked)) {
-    console.log('NEJ');
+    if(emailInputValue.trim() === '' || commentInputValue.trim() === '' /* ||!(document.querySelector('input[type=radio]').checked) */ ) {
     return false
   }
 
@@ -84,7 +82,7 @@ const createNewComment = () => {
   const commentInputValue = commentInput.value;
 
 
-  if(emailInputValue.trim() === '' || commentInputValue.trim() === '' || !(document.querySelector('input[type=radio]').checked)) {
+  if(emailInputValue.trim() === '' || commentInputValue.trim() === '' /*|| !(document.querySelector('input[type=radio]').checked) */) {
     console.log(emailInputValue);
     return
   }
@@ -115,35 +113,75 @@ const createNewComment = () => {
 const getInput = (e) => {
     e.preventDefault();
 
-    console.log('1')
-if(!validateForm()) {
-    console.log(2)
+  if(!validateForm()) {
     return
+  }
+
+  const newComment = {
+    caseId: id,
+    email: form.querySelector('input[type=email]').value,
+    message: form.querySelector('#textarea-input').value
+  }
+
+  fetch(COMMENTS_URL, {
+      method: 'POST',
+      body: JSON.stringify(newComment),
+      headers: {
+          'Content-type': 'application/json; charset=UTF-8',
+      },
+    })
+
+    // JSON
+      .then(res => console.log(res))
+      .then(() => {
+        createNewComment()
+
+        const statusValue = document.querySelector('input[name="rBtn"]:checked').value
+
+      
+      
+        console.log(statusValue)
+        Number(statusValue)
+        console.log(statusValue)
+        
+        fetch(BASE_URL + id)
+          .then (res => res.json())
+          .then (() => {
+      
+            let newStatus = {
+              id: id,
+              statusId: Number(statusValue)
+            }
+            
+      
+            fetch(BASE_URL + id, {
+              method: 'PUT',
+              body: JSON.stringify(newStatus),
+              headers: {
+                'Content-type': 'application/json; charset=UTF-8',
+              },
+            })
+            // JSON !!!!
+              .then((res) => console.log(res))
+              .then(() => {
+
+                fetch(BASE_URL + id)
+                  .then (res => res.json())
+                  .then (data => {
+        
+                  cardWrapper.innerHTML = ''
+                  createElement(data)
+                  console.log('Pär')
+                  })
+              })
+              })
+            })
 }
 
-    const newComment = {
-        caseId: id,
-        email: form.querySelector('input[type=email]').value,
-        message: form.querySelector('#textarea-input').value
-    }
+  
 
-    console.log(newComment)
-    // createNewComment()
 
-    fetch(COMMENTS_URL, {
-        method: 'POST',
-        body: JSON.stringify(newComment),
-        headers: {
-            'Content-type': 'application/json; charset=UTF-8',
-    },
-})
-        .then(res => console.log(res))
-        .then(createNewComment())
-        
-    }
-    // )
 
-// }
 
 
 form.addEventListener('submit', getInput);
