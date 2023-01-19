@@ -20,6 +20,16 @@ fetch(BASE_URL + id)
     createElement(data)
     console.log(array)
     listComments(data)
+
+    if(data.statusId == 1) {
+      document.querySelector('.status').style.color = '#ff0000'
+    }
+    if(data.statusId == 2) {
+      document.querySelector('.status').style.color = 'yellow'
+    }
+    if(data.statusId == 3) {
+      document.querySelector('.status').style.color = '#00ff00'
+    }
 })
 
 
@@ -28,7 +38,7 @@ const listComments = (data) => {
     const getComments = data.comments
 
     getComments.forEach(comment => {
-        console.log(comment);
+        // console.log(comment);
         const commentDiv = document.createElement('div');
         commentDiv.classList.add('comment-class');
 
@@ -42,7 +52,10 @@ const listComments = (data) => {
 
         const timeComments = document.createElement('p');
         timeComments.classList.add('time_comments');
-        timeComments.innerText = comment.created
+        let time = comment.created
+        const date = new Date(time)
+        const dateFormat = date.getHours() + ':' + date.getMinutes() + ', ' + date.toDateString()
+        timeComments  .innerText = dateFormat
 
         commentDiv.appendChild(commentP);
         commentDiv.appendChild(emailComments);
@@ -75,10 +88,15 @@ const createElement = (data) => {
     userEmail.innerText = data.email;
 
     const timeStamp = document.createElement('p');
+    let time = data.created
+    const date = new Date(time)
+    const dateFormat = date.getHours() + ':' + date.getMinutes() + ', ' + date.toDateString()
     timeStamp.classList.add('timeStamp');
-    timeStamp.innerText = data.created;
-    
-    
+    timeStamp.innerText = dateFormat
+    // timeStamp.innerText = data.created;
+
+
+
 
     div.appendChild(statusText)
     div.appendChild(h1)
@@ -96,9 +114,25 @@ const validateForm = () => {
     const commentInputValue = commentInput.value;
     
 
-    if(emailInputValue.trim() === '' || commentInputValue.trim() === '' /* ||!(document.querySelector('input[type=radio]').checked) */ ) {
+    const radios = document.getElementsByName('rBtn')
+    const errorArray = []
+
+    radios.forEach(radio => {
+      if(radio.checked) {
+        errorArray.push(true)
+      }
+      else {
+        errorArray.push(false)
+      }
+      })
+
+
+    if(emailInputValue.trim() === '' || commentInputValue.trim() === '' ) {
     return false
-  }
+    }
+    if(!errorArray.includes(true)) {
+      return false
+    }
 
   return true
 }
@@ -169,11 +203,7 @@ const getInput = (e) => {
 
         const statusValue = document.querySelector('input[name="rBtn"]:checked').value
 
-      
-      
-        console.log(statusValue)
         Number(statusValue)
-        console.log(statusValue)
         
         fetch(BASE_URL + id)
           .then (res => res.json())
@@ -202,12 +232,25 @@ const getInput = (e) => {
         
                   cardWrapper.innerHTML = ''
                   createElement(data)
-                  console.log('Pär')
+
+                  if(statusValue == 1) {
+                    document.querySelector('.status').style.color = '#ff0000'
+                  }
+                  if(statusValue == 2) {
+                    document.querySelector('.status').style.color = 'yellow'
+                  }
+                  if(statusValue == 3) {
+                    document.querySelector('.status').style.color = '#00ff00'
+                  }
                   })
               })
               })
             })
 }
+
+  
+
+
 
 
 
