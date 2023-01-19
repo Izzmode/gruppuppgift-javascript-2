@@ -22,20 +22,6 @@ fetch(BASE_URL + id)
     listComments(data)
 })
 
-// const getComments = () => {
-//     fetch(BASE_URL)
-//       .then(res => res.json())
-//       .then(data => {
-  
-    
-//         data.forEach(post => {
-//           comments.push(post)
-//         });
-//         console.log(data)
-//         // listCases()
-//       })
-//   }
-
 
 const listComments = (data) => {
     console.log(data.comments[0].message, data.comments[0].created, data.comments[0].email);
@@ -91,6 +77,8 @@ const createElement = (data) => {
     const timeStamp = document.createElement('p');
     timeStamp.classList.add('timeStamp');
     timeStamp.innerText = data.created;
+    
+    
 
     div.appendChild(statusText)
     div.appendChild(h1)
@@ -99,7 +87,6 @@ const createElement = (data) => {
     div.appendChild(timeStamp)
     cardWrapper.appendChild(div);
 };
-
 
 const validateForm = () => {
 
@@ -115,7 +102,6 @@ const validateForm = () => {
 
   return true
 }
-
 
 
 const createNewComment = () => {
@@ -145,6 +131,7 @@ const createNewComment = () => {
 
     const timeComments = document.createElement('p');
     timeComments.classList.add('time_comments');
+
 
     commentDiv.appendChild(commentP);
     commentDiv.appendChild(emailComments);
@@ -222,15 +209,9 @@ const getInput = (e) => {
             })
 }
 
-  
-
-
-
 
 
 form.addEventListener('submit', getInput);
-
-
 
 
 // const createCommentElement = () => {
