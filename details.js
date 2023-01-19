@@ -57,9 +57,6 @@ const createElement = (data) => {
 };
 
 
-
-
-
 const validateForm = () => {
 
     const emailInput = form.querySelector('input[type=email]');
@@ -74,8 +71,6 @@ const validateForm = () => {
 
   return true
 }
-
-
 
 
 
