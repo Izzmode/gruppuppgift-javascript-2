@@ -32,20 +32,6 @@ fetch(BASE_URL + id)
     }
 })
 
-// const getComments = () => {
-//     fetch(BASE_URL)
-//       .then(res => res.json())
-//       .then(data => {
-  
-    
-//         data.forEach(post => {
-//           comments.push(post)
-//         });
-//         console.log(data)
-//         // listCases()
-//       })
-//   }
-
 
 const listComments = (data) => {
     console.log(data.comments[0].message, data.comments[0].created, data.comments[0].email);
@@ -120,7 +106,6 @@ const createElement = (data) => {
     cardWrapper.appendChild(div);
 };
 
-
 const validateForm = () => {
 
     const emailInput = form.querySelector('input[type=email]');
@@ -153,7 +138,6 @@ const validateForm = () => {
 }
 
 
-
 const createNewComment = () => {
 
   const emailInput = form.querySelector('input[type=email]');
@@ -181,6 +165,7 @@ const createNewComment = () => {
 
     const timeComments = document.createElement('p');
     timeComments.classList.add('time_comments');
+
 
     commentDiv.appendChild(commentP);
     commentDiv.appendChild(emailComments);
@@ -261,9 +246,6 @@ const getInput = (e) => {
               })
               })
             })
-
-            
-              
 }
 
   
@@ -273,8 +255,6 @@ const getInput = (e) => {
 
 
 form.addEventListener('submit', getInput);
-
-
 
 
 // const createCommentElement = () => {
