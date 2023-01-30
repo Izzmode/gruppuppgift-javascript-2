@@ -11,35 +11,23 @@ const array = [];
 const comments = document.querySelector('.output .comments');
 
 
-//LÄGG TILL ID SENARE
+//Hämtar in datan
 fetch(BASE_URL + id)
 .then (res => res.json())
 .then (data => {
 
     array.push(data);
     createElement(data)
-    console.log(array)
     listComments(data)
-
-    if(data.statusId == 1) {
-      document.querySelector('.status').style.color = '#ff0000'
-    }
-    if(data.statusId == 2) {
-      document.querySelector('.status').style.color = 'yellow'
-    }
-    if(data.statusId == 3) {
-      document.querySelector('.status').style.color = '#00ff00'
-    }
+    setStatusColor(data)
 })
 
 
 const listComments = (data) => {
-    console.log(data.comments[0].message, data.comments[0].created, data.comments[0].email);
-    const getComments = data.comments
+  const getComments = data.comments
 
-    getComments.forEach(comment => {
-        // console.log(comment);
-        const commentDiv = document.createElement('div');
+  getComments.forEach(comment => {
+    const commentDiv = document.createElement('div');
         commentDiv.classList.add('comment-class');
 
         const commentP = document.createElement('p');
@@ -52,10 +40,8 @@ const listComments = (data) => {
 
         const timeComments = document.createElement('p');
         timeComments.classList.add('time_comments');
-        let time = comment.created
-        const date = new Date(time)
-        const dateFormat = date.getHours() + ':' + date.getMinutes() + ', ' + date.toDateString()
-        timeComments  .innerText = dateFormat
+        timeComments.innerText = editTimestamp(comment)
+       
 
         commentDiv.appendChild(commentP);
         commentDiv.appendChild(emailComments);
@@ -64,6 +50,25 @@ const listComments = (data) => {
     })
 }
   
+
+const editTimestamp = (data) => {
+  let time = data.created
+  const date = new Date(time)
+  const dateFormat = date.getHours() + ':' + date.getMinutes() + ', ' + date.toDateString()
+  return dateFormat
+}
+
+const setStatusColor = (data) => {
+  if(data.statusId == 1) {
+    document.querySelector('.status').style.color = '#ff0000'
+  }
+  if(data.statusId == 2) {
+    document.querySelector('.status').style.color = '#f0cd09'
+  }
+  if(data.statusId == 3) {
+    document.querySelector('.status').style.color = '#00ff00'
+  }
+}
 
 //SKAPAR ELEMENT FRÅN API
 
@@ -88,14 +93,8 @@ const createElement = (data) => {
     userEmail.innerText = data.email;
 
     const timeStamp = document.createElement('p');
-    let time = data.created
-    const date = new Date(time)
-    const dateFormat = date.getHours() + ':' + date.getMinutes() + ', ' + date.toDateString()
     timeStamp.classList.add('timeStamp');
-    timeStamp.innerText = dateFormat
-    // timeStamp.innerText = data.created;
-
-
+    timeStamp.innerText = editTimestamp(data)
 
 
     div.appendChild(statusText)
@@ -108,34 +107,38 @@ const createElement = (data) => {
 
 const validateForm = () => {
 
-    const emailInput = form.querySelector('input[type=email]');
-    const emailInputValue = emailInput.value;
-    const commentInput = form.querySelector('#textarea-input');
-    const commentInputValue = commentInput.value;
-    
+  const emailInput = form.querySelector('input[type=email]');
+  const emailInputValue = emailInput.value;
+  const commentInput = form.querySelector('#textarea-input');
+  const commentInputValue = commentInput.value;
 
-    const radios = document.getElementsByName('rBtn')
-    const errorArray = []
+  const radios = document.getElementsByName('rBtn')
+  const errorArray = []
 
-    radios.forEach(radio => {
-      if(radio.checked) {
-        errorArray.push(true)
-      }
-      else {
-        errorArray.push(false)
-      }
-      })
-
-
-    if(emailInputValue.trim() === '' || commentInputValue.trim() === '' ) {
+  if(emailInputValue.trim() === '' || commentInputValue.trim() === '' ) {
+    console.log('valideringsfel')
     return false
+  }
+
+  // Kollar genom radiobuttons om ngn av dem är ifyllda
+  radios.forEach(radio => {
+    if(radio.checked) {
+      errorArray.push(true)
     }
-    if(!errorArray.includes(true)) {
-      return false
+    else {
+      errorArray.push(false)
     }
+  })
+
+  // Om error-arrayen INTE innehåller true -> valideringsfel
+  if(!errorArray.includes(true)) {
+    console.log('valideringsfel')
+    return false
+  }
 
   return true
 }
+
 
 
 const createNewComment = () => {
@@ -145,33 +148,26 @@ const createNewComment = () => {
   const commentInput = form.querySelector('#textarea-input');
   const commentInputValue = commentInput.value;
 
+  const commentDiv = document.createElement('div');
+  commentDiv.classList.add('comment-class');
 
-  if(emailInputValue.trim() === '' || commentInputValue.trim() === '' /*|| !(document.querySelector('input[type=radio]').checked) */) {
-    console.log(emailInputValue);
-    return
-  }
-  else{
-    
-    const commentDiv = document.createElement('div');
-    commentDiv.classList.add('comment-class');
+  const commentP = document.createElement('p');
+  commentP.classList.add('comment-text');
+  commentP.innerText = commentInputValue;
 
-    const commentP = document.createElement('p');
-    commentP.classList.add('comment-text');
-    commentP.innerText = commentInputValue;
+  const emailComments = document.createElement('p');
+  emailComments.classList.add('email_comments');
+  emailComments.innerText = emailInputValue;
 
-    const emailComments = document.createElement('p');
-    emailComments.classList.add('email_comments');
-    emailComments.innerText = emailInputValue;
-
-    const timeComments = document.createElement('p');
-    timeComments.classList.add('time_comments');
+  const timeComments = document.createElement('p');
+  timeComments.classList.add('time_comments');
+  timeComments.setAttribute('id', 'new-time')
 
 
     commentDiv.appendChild(commentP);
     commentDiv.appendChild(emailComments);
     commentDiv.appendChild(timeComments);
     comments.appendChild(commentDiv);
-}
 }
 
 
@@ -188,61 +184,54 @@ const getInput = (e) => {
     message: form.querySelector('#textarea-input').value
   }
 
+  // Postar nya kommentaren till databasen
   fetch(COMMENTS_URL, {
-      method: 'POST',
-      body: JSON.stringify(newComment),
-      headers: {
+    method: 'POST',
+    body: JSON.stringify(newComment),
+    headers: {
+        'Content-type': 'application/json; charset=UTF-8',
+    },
+  })
+  .then(() => {
+    // Skapar nytt comment-element
+    createNewComment()
+    // Kollar vilken status ärendet blivit tilldelat
+    const statusValue = document.querySelector('input[name="rBtn"]:checked').value
+  
+     // Hämtar in objektet på nytt för att kunna tilldela ny status
+     fetch(BASE_URL + id)
+     .then (res => res.json())
+     .then (() => {
+      let newStatus = {
+        id: id,
+        statusId: Number(statusValue)
+      }
+      // Skickar in nya statusen till databasen
+      fetch(BASE_URL + id, {
+        method: 'PUT',
+        body: JSON.stringify(newStatus),
+        headers: {
           'Content-type': 'application/json; charset=UTF-8',
-      },
-    })
-
-    // JSON
-      .then(res => console.log(res))
+        },
+      })
       .then(() => {
-        createNewComment()
-
-        const statusValue = document.querySelector('input[name="rBtn"]:checked').value
-
-        Number(statusValue)
-        
-        fetch(BASE_URL + id)
-          .then (res => res.json())
-          .then (() => {
-      
-            let newStatus = {
-              id: id,
-              statusId: Number(statusValue)
-            }
-            
-      
-            fetch(BASE_URL + id, {
-              method: 'PUT',
-              body: JSON.stringify(newStatus),
-              headers: {
-                'Content-type': 'application/json; charset=UTF-8',
-              },
-            })
-            // JSON !!!!
-              .then((res) => console.log(res))
-              .then(() => {
-
+                // Tömmer formuläret här för nu behöver vi inte infon längre
+                form.reset()
+                // Hämtar objektet PÅ NYTT för varför inte..
+                // ..för hur ska vi annars få ändringarna att dyka upp direkt?
                 fetch(BASE_URL + id)
                   .then (res => res.json())
                   .then (data => {
-        
+                     // Tömmer case-rutan
                   cardWrapper.innerHTML = ''
+                  // Skapar case-rutan igen med uppdaterat objekt
                   createElement(data)
+                  // Skriver ut rätt timestamp på objektet
+                  document.querySelector('#new-time').innerText = editTimestamp(data)
 
-                  if(statusValue == 1) {
-                    document.querySelector('.status').style.color = '#ff0000'
-                  }
-                  if(statusValue == 2) {
-                    document.querySelector('.status').style.color = 'yellow'
-                  }
-                  if(statusValue == 3) {
-                    document.querySelector('.status').style.color = '#00ff00'
-                  }
-                  })
+                  // Tilldelar färg till statusen
+                  setStatusColor(data)
+                })
               })
               })
             })
@@ -251,24 +240,4 @@ const getInput = (e) => {
   
 
 
-
-
-
 form.addEventListener('submit', getInput);
-
-
-// const createCommentElement = () => {
-
-//     const commentDiv = document.createElement('div');
-//     commentDiv.classList.add('comment-class');
-
-//     const commentP = document.createElement('p');
-//     commentP.classList.add('comment-text');
-
-//     commentDiv.appendChild(commentP);
-//     comments.appendChild(commentDiv);
-
-
-// }
-
-// createCommentElement();
