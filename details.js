@@ -11,7 +11,7 @@ const array = [];
 const comments = document.querySelector('.output .comments');
 
 
-//Hämtar in datan
+// Hämtar in datan
 fetch(BASE_URL + id)
 .then (res => res.json())
 .then (data => {
@@ -23,11 +23,13 @@ fetch(BASE_URL + id)
 })
 
 
-const listComments = (data) => {
-  const getComments = data.comments
+// LISTAR OCH SKAPAR REDAN EXISTERANDE KOMMENTARER
 
-  getComments.forEach(comment => {
-    const commentDiv = document.createElement('div');
+const listComments = (data) => {
+    const getComments = data.comments
+
+    getComments.forEach(comment => {
+        const commentDiv = document.createElement('div');
         commentDiv.classList.add('comment-class');
 
         const commentP = document.createElement('p');
@@ -41,7 +43,6 @@ const listComments = (data) => {
         const timeComments = document.createElement('p');
         timeComments.classList.add('time_comments');
         timeComments.innerText = editTimestamp(comment)
-       
 
         commentDiv.appendChild(commentP);
         commentDiv.appendChild(emailComments);
@@ -49,7 +50,6 @@ const listComments = (data) => {
         comments.appendChild(commentDiv);
     })
 }
-  
 
 const editTimestamp = (data) => {
   let time = data.created
@@ -69,8 +69,9 @@ const setStatusColor = (data) => {
     document.querySelector('.status').style.color = '#00ff00'
   }
 }
+  
 
-//SKAPAR ELEMENT FRÅN API
+//SKAPAR CASE-ELEMENTET
 
 const createElement = (data) => {
     const div = document.createElement('div');
@@ -96,7 +97,6 @@ const createElement = (data) => {
     timeStamp.classList.add('timeStamp');
     timeStamp.innerText = editTimestamp(data)
 
-
     div.appendChild(statusText)
     div.appendChild(h1)
     div.appendChild(descriptionText)
@@ -105,21 +105,23 @@ const createElement = (data) => {
     cardWrapper.appendChild(div);
 };
 
+
+// VALIDERAR FORMULÄRET
+
 const validateForm = () => {
 
   const emailInput = form.querySelector('input[type=email]');
   const emailInputValue = emailInput.value;
   const commentInput = form.querySelector('#textarea-input');
   const commentInputValue = commentInput.value;
-
+    
   const radios = document.getElementsByName('rBtn')
   const errorArray = []
-
+  
   if(emailInputValue.trim() === '' || commentInputValue.trim() === '' ) {
     console.log('valideringsfel')
     return false
   }
-
   // Kollar genom radiobuttons om ngn av dem är ifyllda
   radios.forEach(radio => {
     if(radio.checked) {
@@ -128,7 +130,7 @@ const validateForm = () => {
     else {
       errorArray.push(false)
     }
-  })
+    })
 
   // Om error-arrayen INTE innehåller true -> valideringsfel
   if(!errorArray.includes(true)) {
@@ -139,6 +141,7 @@ const validateForm = () => {
   return true
 }
 
+// CREATE NEW COMMENT
 
 
 const createNewComment = () => {
@@ -163,21 +166,25 @@ const createNewComment = () => {
   timeComments.classList.add('time_comments');
   timeComments.setAttribute('id', 'new-time')
 
+  commentDiv.appendChild(commentP);
+  commentDiv.appendChild(emailComments);
+  commentDiv.appendChild(timeComments);
+  comments.appendChild(commentDiv);
 
-    commentDiv.appendChild(commentP);
-    commentDiv.appendChild(emailComments);
-    commentDiv.appendChild(timeComments);
-    comments.appendChild(commentDiv);
 }
 
 
-const getInput = (e) => {
-    e.preventDefault();
+// KÖRS NÄR FOMRULÄRET SUBMITTAS
 
+const getInput = (e) => {
+  e.preventDefault();
+
+    // Validering
   if(!validateForm()) {
     return
   }
 
+  // Skapar nytt comment-objekt
   const newComment = {
     caseId: id,
     email: form.querySelector('input[type=email]').value,
@@ -214,7 +221,8 @@ const getInput = (e) => {
           'Content-type': 'application/json; charset=UTF-8',
         },
       })
-      .then(() => {
+            
+              .then(() => {
                 // Tömmer formuläret här för nu behöver vi inte infon längre
                 form.reset()
                 // Hämtar objektet PÅ NYTT för varför inte..
@@ -222,7 +230,7 @@ const getInput = (e) => {
                 fetch(BASE_URL + id)
                   .then (res => res.json())
                   .then (data => {
-                     // Tömmer case-rutan
+                  // Tömmer case-rutan
                   cardWrapper.innerHTML = ''
                   // Skapar case-rutan igen med uppdaterat objekt
                   createElement(data)
@@ -230,14 +238,14 @@ const getInput = (e) => {
                   document.querySelector('#new-time').innerText = editTimestamp(data)
 
                   // Tilldelar färg till statusen
-                  setStatusColor(data)
-                })
+                  setStatusColor(data)   
+                  })
               })
               })
-            })
-}
+          }) 
 
-  
+              
+}
 
 
 form.addEventListener('submit', getInput);
