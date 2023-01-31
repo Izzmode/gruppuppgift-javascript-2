@@ -48,24 +48,16 @@ form {
     color: black;
 }
 
-// .comment-wrapper{
-//     display: flex;
-//     flex-direction: column;
-//     justify-content: center;
-// }
+.error-container:hover {
+    background-color: #e5eff8;
+}
 
-// .status-wrapper{
-//     background-color: #b0b0b0;
-//     width: 400px;
-//     text-align: center;
-//     padding-bottom: 2rem;
-// }
-
-// .form-wrapper-details{
-//     background-color: #b0b0b0;
-//     padding: 2rem;
-//     width: 400px;
-// }
+#error-message {
+    text-align: center;
+    margin-top: 2rem;
+    font-weight: bold;
+    color: firebrick;
+}
 
 .display-none {
     display: none;
