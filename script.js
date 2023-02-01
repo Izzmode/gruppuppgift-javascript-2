@@ -8,43 +8,40 @@ const output = document.querySelector('.error-wrapper')
 const addForm = document.querySelector('#add-form')
 
 
-// HÄMTA CASES FRÅN API
+// HÄMTA CASES 
 
 
 const getCases = () => {
-    fetch(BASE_URL)
-      .then(res => res.json())
-      .then(data => {
+  fetch(BASE_URL)
+    .then(res => res.json())
+    .then(data => {
   
-        console.log(data)
-        output.innerHTML = ''
+      output.innerHTML = ''
 
-        data.forEach(post => {
-          cases.push(post)
-        });
+      data.forEach(post => {
+        cases.push(post)
+      });
 
-        listCases()
-      })
-  }
+      listCases()
+    })
+}
 
 getCases()
-console.log(cases)
 
 
-// LIST CASES - Lista upp dem i rätt ordning
+// LIST CASES 
 
 const listCases = () => {
   output.innerHTML = ''
 
   cases.forEach(user => {
-    // TBD - Lista upp dem enligt timestamp
   const caseElement = createCaseElement(user)
   output.appendChild(caseElement)
   })
 }
 
 
-// CREATE ELEMENT - Skapa html-kort av cases
+// CREATE ELEMENT 
 
 const createCaseElement = (caseData) => {
 
@@ -64,12 +61,12 @@ const createCaseElement = (caseData) => {
   
   if(caseData.statusId == 2) {
     status.innerText = ' Pågående'
-    status.style.color = 'yellow'
+    status.style.color = '#f0cd09'
   }
   
   if(caseData.statusId == 3) {
     status.innerText = ' Avklarad'
-    status.style.color = '#00ff00'
+    status.style.color = '#16da16'
   }
 
   const titel = document.createElement('h2')
@@ -82,7 +79,6 @@ const createCaseElement = (caseData) => {
   email.innerText = caseData.email
 
   const time = document.createElement('p')
-  // time.innerText = caseData.created
 
   let timeStamp = caseData.created
   const date = new Date(timeStamp)
@@ -99,7 +95,7 @@ const createCaseElement = (caseData) => {
 }
 
 
-// VALIDATE ADD-FORM - Validera lägg till ärende-formuläret
+// VALIDATE ADD-FORM 
 
 const validateAddForm = e => {
 
@@ -131,7 +127,6 @@ const handleSubmit = e => {
   e.preventDefault()
 
   if(!validateAddForm()) {
-    console.log('valideringsfel')
     return 
   }
 
@@ -157,16 +152,13 @@ const handleSubmit = e => {
   
           output.innerHTML = ''
           cases.unshift(data)
-          console.log(data)
 
         listCases()
+        addForm.reset()
       })
 
     })
 
 }
 
-
 addForm.addEventListener('submit', handleSubmit)
-
-

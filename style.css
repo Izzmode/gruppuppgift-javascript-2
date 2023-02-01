@@ -158,6 +158,17 @@ form {
   color: black;
 }
 
+.error-container:hover {
+  background-color: #e5eff8;
+}
+
+#error-message {
+  text-align: center;
+  margin-top: 2rem;
+  font-weight: bold;
+  color: firebrick;
+}
+
 .display-none {
   display: none;
 }/*# sourceMappingURL=style.css.map */
